@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class Truck {
-    private static int loadLimit = 10;
+    private static int loadLimit = 3000;
     private LinkedList<Parcel> parcelLoaded;
     private int loadedWeight = 0;
 
@@ -43,7 +43,7 @@ public class Truck {
         // delete last ", "
         parcelStored = new StringBuilder(parcelStored.substring(0, parcelStored.length() - 2));
 
-        return String.format("Truck %c - available: %d kg | loaded: [%s]", label,  loadLimit - loadedWeight, parcelStored.toString());
+        return String.format("Truck %c - available: %d kg \t | loaded: [%s]", label,  loadLimit - loadedWeight, parcelStored.toString());
     }
 
     public boolean loadParcel(Parcel parcel) {
@@ -58,7 +58,7 @@ public class Truck {
     public Truck() {
         label = (char) count;
         count++;
-        this.parcelLoaded = new LinkedList<Parcel>();
+        this.parcelLoaded = new LinkedList<>();
     }
 }
 

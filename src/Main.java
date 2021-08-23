@@ -50,13 +50,13 @@ public class Main {
     // used to init the default parcel list
     private static void initDefaultList() {
         defaultParcelList = new LinkedList<>();
-        defaultParcelList.add(new Parcel(2));
-        defaultParcelList.add(new Parcel(5));
-        defaultParcelList.add(new Parcel(4));
-        defaultParcelList.add(new Parcel(7));
-        defaultParcelList.add(new Parcel(1));
-        defaultParcelList.add(new Parcel(3));
-        defaultParcelList.add(new Parcel(8));
+        defaultParcelList.add(new Parcel(600));
+        defaultParcelList.add(new Parcel(1500));
+        defaultParcelList.add(new Parcel(1200));
+        defaultParcelList.add(new Parcel(2100));
+        defaultParcelList.add(new Parcel(300));
+        defaultParcelList.add(new Parcel(900));
+        defaultParcelList.add(new Parcel(2400));
         // reset parcel label to start with 1
         Parcel.resetLabel();
     }
