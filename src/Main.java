@@ -50,15 +50,19 @@ public class Main {
     // used to init the default parcel list
     private static void initDefaultList() {
         defaultParcelList = new LinkedList<>();
-        defaultParcelList.add(new Parcel(600));
-        defaultParcelList.add(new Parcel(1500));
-        defaultParcelList.add(new Parcel(1200));
-        defaultParcelList.add(new Parcel(2100));
-        defaultParcelList.add(new Parcel(300));
-        defaultParcelList.add(new Parcel(900));
-        defaultParcelList.add(new Parcel(2400));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(2)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(5)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(4)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(7)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(1)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(3)));
+        defaultParcelList.add(new Parcel((int) calculateDefaultParcelWeight(8)));
         // reset parcel label to start with 1
         Parcel.resetLabel();
+    }
+
+    private static double calculateDefaultParcelWeight(double weight) {
+        return weight / 10 * Truck.getLoadLimit();
     }
 
 
@@ -74,20 +78,21 @@ public class Main {
 
     // use to prompt user input a integer, throw exception if not a number or negative number is inputted
     private static int getIntInput(String promptMsg) {
-        System.out.print(promptMsg);
         int input = 0;
-        try {
-            input = Integer.parseInt(scanner.next());
-            scanner.nextLine();
-            if (input < 0) {
-                throw new IllegalArgumentException("Cannot be negative numbers.");
+        while (true) {
+            try {
+                System.out.print(promptMsg);
+                input = Integer.parseInt(scanner.next());
+                scanner.nextLine();
+                if (input < 0) {
+                    throw new IllegalArgumentException("Cannot be negative numbers.");
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input.");
-            getIntInput(promptMsg);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            getIntInput(promptMsg);
         }
         return input;
     }
@@ -102,7 +107,7 @@ public class Main {
             if (weight == 0)
                 break;
 
-            if(weight > Truck.getLoadLimit()){
+            if (weight > Truck.getLoadLimit()) {
                 System.out.println("Parcel weight cannot be more than current load limit.");
                 continue;
             }
@@ -171,15 +176,10 @@ public class Main {
      */
     public static void setLoadLimit() {
         int newLoadLimit = getIntInput("Enter new load limit: ");
-        int oldLoadLimit = Truck.getLoadLimit();
         Truck.setLoadLimit(newLoadLimit);
 
-        int difference = newLoadLimit - oldLoadLimit;
-        // adjust default weight to match with new load limit
-        difference = difference / 7;
-        for (Parcel parcel : defaultParcelList) {
-            parcel.setWeight(parcel.getWeight() + difference);
-        }
+        // adjust weight of default parcel list
+        initDefaultList();
         System.out.println("Load limit set to " + newLoadLimit + " kg");
         enterToContinue();
     }
