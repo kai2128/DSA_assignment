@@ -3,15 +3,13 @@ import java.util.LinkedList;
 public abstract class AbstractAlgorithm implements Algorithm{
     protected LinkedList<Parcel> parcelList;
     protected LinkedList<Truck> truckList = new LinkedList<>();
-    protected LinkedList<Parcel> loadedParcel = new LinkedList<>();
 
     protected boolean loadParcelToTruck(Truck truck, Parcel parcel){
         return truck.loadParcel(parcel);
     }
 
-    public void recordLoadedParcel(Parcel parcel){
-        // record in loaded parcel and delete parcel from parcel list
-        loadedParcel.add(parcel);
+    public void removeFromList(Parcel parcel){
+        // delete parcel from parcel list
         parcelList.remove(parcel);
     }
 

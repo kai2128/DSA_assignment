@@ -15,8 +15,8 @@ public class FirstFitDecreasing extends AbstractAlgorithm {
 
                 // if parcel is successfully loaded
                 if(isLoaded){
-                    // remove it from the parcel list and add to loadedParcel
-                    recordLoadedParcel(parcelToBeLoaded);
+                    // remove it from the parcel list
+                    removeFromList(parcelToBeLoaded);
                     break;
                 }
             }

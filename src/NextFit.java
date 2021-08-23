@@ -15,7 +15,7 @@ public class NextFit extends AbstractAlgorithm {
 
             // if successfully loaded remove parcel from parcel list
             if (isLoaded) {
-                recordLoadedParcel(parcelToBeLoaded);
+                removeFromList(parcelToBeLoaded);
             } else
                 // if fail to load, create a new truck
                 createNewTruck();
