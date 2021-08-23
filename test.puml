@@ -1,0 +1,82 @@
+@startuml
+skinparam classAttributeIconSize 0
+interface Algorithm {
++ void startAlgorithm()
++ void printResult()
+}
+class Truck {
+- {static} int loadLimit
+- LinkedList<Parcel> parcelLoaded
+- int loadedWeight
+- {static} int count
+- char label
++ <<Create>> Truck()
++ {static} void resetLabel()
++ String getLabel()
++ {static} int getLoadLimit()
++ {static} void setLoadLimit(int)
++ boolean isFull()
++ boolean canLoad(int)
++ boolean canLoad(Parcel)
++ String printParcelStored()
++ boolean loadParcel(Parcel)
+}
+class NextFit {
++ <<Create>> NextFit(List<Parcel>)
++ void startAlgorithm()
+}
+class Main {
+- {static} Scanner scanner
+- {static} LinkedList<Parcel> parcelList
+- {static} LinkedList<Parcel> defaultParcelList
+- {static} Algorithm algorithm
++ {static} void main(String[])
+- {static} void enterToContinue()
+- {static} void initDefaultList()
+- {static} List<Parcel> checkIsParcelListEmpty()
+- {static} int getIntInput(String)
++ {static} void addParcel()
++ {static} void generateRandomList()
++ {static} void listParcel()
++ {static} void resetList()
++ {static} void setLoadLimit()
+- {static} void startAlgorithm()
++ {static} void nextFit()
++ {static} void firstFitDecreasing()
+}
+class FirstFitDecreasing {
++ <<Create>> FirstFitDecreasing(List<Parcel>)
++ void startAlgorithm()
+}
+class Parcel {
+- int weight
+- Truck loadedAt
+- {static} int count
+- int label
++ <<Create>> Parcel(int)
++ {static} void resetLabel()
++ String getLabel()
++ String toString()
++ Parcel loadInto(Truck)
++ Truck getLoadedAt()
++ int getWeight()
++ void setWeight(int)
++ int compareTo(Parcel)
+}
+abstract class AbstractAlgorithm {
+# LinkedList<Parcel> parcelList
+# LinkedList<Truck> truckList
+# LinkedList<Parcel> loadedParcel
+# boolean loadParcelToTruck(Truck,Parcel)
++ void recordLoadedParcel(Parcel)
++ boolean notAllParcelBeingLoaded()
++ void createNewTruck()
++ void printResult()
+}
+
+Truck "1" o-- "many " Parcel : contains
+AbstractAlgorithm <|-- NextFit
+AbstractAlgorithm <|-- FirstFitDecreasing
+Comparable <|.. Parcel
+Algorithm <|.. AbstractAlgorithm
+@enduml

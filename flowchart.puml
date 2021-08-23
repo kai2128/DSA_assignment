@@ -1,0 +1,43 @@
+@startuml
+skinparam shadowing false
+title Next Fit
+start
+:createNewTruck();
+while (notAllParcelBeingLoaded) is (true)
+    :parcelToBeLoaded = parcelList.getFirst();
+    :isLoaded = false;
+    :isLoaded = loadParcelToTruck(truckList.getLast(), parcelToBeLoaded);
+
+    if (isLoaded) then (true)
+        :recordLoadedParcel(parcelToBeLoaded);
+    else (false)
+        :createNewTruck();
+    endif
+endwhile (false)
+stop
+@enduml
+
+@startuml
+skinparam shadowing false
+title First Fit Decreasing
+start
+:createNewTruck();
+while (notAllParcelBeingLoaded) is (true)
+    :parcelToBeLoaded = parcelList.getFirst();
+    :isLoaded = false;
+
+    while (For each truck in truckList) is (next truck)
+        :isLoaded = loadParcelToTruck(truck, parcelToBeLoaded);
+         if (isLoaded) then (true)
+            :recordLoadedParcel(parcelToBeLoaded);
+            break;
+        else  (false)
+        endif
+    endwhile (finish iterate all truck)
+    if (!isLoaded) then (true)
+        :createNewTruck();
+    endif
+endwhile (false)
+stop
+@enduml
+
