@@ -7,25 +7,25 @@ public class FirstFitDecreasing extends AbstractAlgorithm {
         createNewTruck();
         while (notAllParcelBeingLoaded()){
             Parcel parcelToBeLoaded = parcelList.getFirst();
-            boolean isLoaded = false;
+            boolean loaded = false;
 
             // scan for all truck and try to load parcel into first fittable truck
             for (Truck truck : truckList) {
-                isLoaded = loadParcelToTruck(truck, parcelToBeLoaded);
+                loaded = loadParcelToTruck(truck, parcelToBeLoaded);
 
-                // if parcel is successfully loaded
-                if(isLoaded){
-                    // remove it from the parcel list
-                    removeFromList(parcelToBeLoaded);
+                // if parcel is successfully load into a truck stop scanning
+                if(loaded)
                     break;
-                }
             }
 
-            // if the parcel is not being load after scanning
-            if(!isLoaded){
-                // add a new truck
-                createNewTruck();
+            // if fail to load after scanning all truck,
+            // create a new truck and load the parcel into it
+            if(!loaded){
+                loadParcelIntoNewTruck(parcelToBeLoaded);
             }
+
+            // remove it from the parcel list
+            removeFromList(parcelToBeLoaded);
         }
     }
 

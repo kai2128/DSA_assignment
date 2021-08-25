@@ -18,7 +18,7 @@ public class Parcel implements Comparable<Parcel> {
 
     @Override
     public String toString() {
-        return String.format("Parcel %d {%d kg}", label, weight);
+        return String.format("Parcel %d {%4d kg}", label, weight);
     }
 
     public Parcel loadInto(Truck truck) {

@@ -21,6 +21,12 @@ public abstract class AbstractAlgorithm implements Algorithm{
         truckList.addLast(new Truck());
     }
 
+    public void loadParcelIntoNewTruck(Parcel parcel){
+        Truck newTruck = new Truck();
+        newTruck.loadParcel(parcel);
+        truckList.addLast(newTruck);
+    }
+
     @Override
     public void printResult() {
         for (Truck truck : truckList) {

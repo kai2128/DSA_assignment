@@ -1,5 +1,6 @@
 @startuml
 skinparam shadowing false
+skinparam monochrome true
 title Next Fit
 start
 :createNewTruck();
@@ -9,7 +10,7 @@ while (notAllParcelBeingLoaded) is (true)
     :isLoaded = loadParcelToTruck(truckList.getLast(), parcelToBeLoaded);
 
     if (isLoaded) then (true)
-        :recordLoadedParcel(parcelToBeLoaded);
+        :removeParcelFromList(parcelToBeLoaded);
     else (false)
         :createNewTruck();
     endif
@@ -19,6 +20,7 @@ stop
 
 @startuml
 skinparam shadowing false
+skinparam monochrome true
 title First Fit Decreasing
 start
 :createNewTruck();
@@ -29,7 +31,7 @@ while (notAllParcelBeingLoaded) is (true)
     while (For each truck in truckList) is (next truck)
         :isLoaded = loadParcelToTruck(truck, parcelToBeLoaded);
          if (isLoaded) then (true)
-            :recordLoadedParcel(parcelToBeLoaded);
+            :removeParcelFromList(parcelToBeLoaded);
             break;
         else  (false)
         endif

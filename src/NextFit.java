@@ -9,17 +9,17 @@ public class NextFit extends AbstractAlgorithm {
 
             // get parcel to be loaded
             Parcel parcelToBeLoaded = parcelList.getFirst();
-            boolean isLoaded = false;
+            boolean loaded = false;
 
-            isLoaded = loadParcelToTruck(truckList.getLast(), parcelToBeLoaded);
+            loaded = loadParcelToTruck(truckList.getLast(), parcelToBeLoaded);
 
-            // if successfully loaded remove parcel from parcel list
-            if (isLoaded) {
-                removeFromList(parcelToBeLoaded);
-            } else
-                // if fail to load, create a new truck
-                createNewTruck();
+            // if fail to load, create a new truck and load the parcel into it
+            if (!loaded) {
+                loadParcelIntoNewTruck(parcelToBeLoaded);
+            }
 
+            // remove parcel from parcel list
+            removeFromList(parcelToBeLoaded);
         }
     }
 

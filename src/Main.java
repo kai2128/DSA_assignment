@@ -146,9 +146,11 @@ public class Main {
      */
     public static void listParcel() {
         List<Parcel> printList = checkIsParcelListEmpty();
+        int totalWeight = 0;
 
         StringBuilder parcelEntered = new StringBuilder();
         for (Parcel parcel : printList) {
+            totalWeight += parcel.getWeight();
             parcelEntered.append(parcel).append(", ");
         }
         // delete last ", "
@@ -156,6 +158,7 @@ public class Main {
         System.out.println();
         System.out.println("Current parcel list: ");
         System.out.println(parcelEntered);
+        System.out.printf("The optimal number of Trucks: %.0f", Math.ceil((double) totalWeight / Truck.getLoadLimit()));
         System.out.println();
         enterToContinue();
     }
@@ -175,7 +178,14 @@ public class Main {
     Use to modify the load limit
      */
     public static void setLoadLimit() {
-        int newLoadLimit = getIntInput("Enter new load limit: ");
+        int newLoadLimit = 0;
+        while (true){
+            newLoadLimit = getIntInput("Enter new load limit: ");
+            if(newLoadLimit <= 0)
+                System.out.println("Load limit cannot be less than or equal to 0.");
+            else
+                break;
+        }
         Truck.setLoadLimit(newLoadLimit);
 
         // adjust weight of default parcel list
